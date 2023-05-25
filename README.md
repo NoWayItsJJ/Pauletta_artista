@@ -17,7 +17,7 @@ Un artista da strada esegue delle caricature e dei ritratti a carboncino. Chi vu
 
 3. Se un cliente riesce ad acquisire un posto in una delle sedie aspetterà di fare il proprio ritratto. Questa coda viene gestita dal semaforo `semaforoArtista` attraverso il suo metodo `tryAcquire()`.
 
-4. Al termine del ritratto il cliente interessato se ne andrà liberando il `semaforoArtista` e 1 posto del `semaforoSedie`.
+4. Al termine del ritratto il cliente interessato se ne andrà liberando il `semaforoArtista` e un posto del `semaforoSedie`.
 
 ## Variabili
 
