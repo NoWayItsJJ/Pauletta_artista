@@ -5,7 +5,7 @@ import java.util.concurrent.Semaphore;
 
 public class artista {
 	private static final int buffer = 4; //numero sedie
-	static final int tempoAttesaMax = 10000; //tempo massimo di attesa
+	public static final int tempoAttesaMax = 10; //tempo massimo di attesa
 	
 	private Semaphore semaforoArtista = new Semaphore(1); //semaforo che permette un solo ritratto alla volta
 	private Semaphore semaforoSedie = new Semaphore(buffer); //semaforo che permette "buffer" accessi alle sedie
