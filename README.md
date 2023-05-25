@@ -9,23 +9,22 @@ Un artista da strada esegue delle caricature e dei ritratti a carboncino. Chi vu
 
 ## Algoritmo
 
-1. All'avvio del programma vengono istanziati 2 semafori a conteggio nella classe `StreetArtistSimulation`:
-    - `chairsSemaphore` &rarr; gestisce l'occupazione delle sedie:
-        - semaforo a conteggio con limite gestito dalla costante `NUM_CHAIRS` 
-    - `portraitSemaphore` &rarr; gestisce i turni per il ritratto.
+1. All'avvio del programma vengono creati 2 semafori nella classe `artista`:
+    - `semaforoArtista`: semaforo mutex che permette un solo ritratto alla volta. 
+    - `semaforoSedie`: semaforo a conteggio che gestisce l'occupazione delle sedie in base alla variabile `buffer`.
 
-2. I clienti vengono istanziati come thread separati e al loro avvio si metteranno in attesa apettando di acquisire una sedia utilizzando il metodo `tryAcquire()` del semaforo `chairsSemaphore`. In caso passi uno specifico periodo di tempo (`MAX_WAIT_TIME`) senza acquisire una sedia il cliente andrà via.
+2. I clienti vengono istanziati come thread e si metteranno in attesa aspettando di acquisire una sedia con il metodo `tryAcquire()` del semaforo `semaforoSedie`. Dopo uno specifico periodo di tempo (`tempoattesaMax`) passato ad aspettare il cliente rinuncierà e andrà via.
 
-3. In caso il cliente riesca ad acquisire un posto nella fila di sedie si metterà in attesa aspettando il proprio ritratto. Quest'attesa viene gestita dal semaforo `portraitSemaphore` attraverso il suo metodo `tryAcquire()`.
+3. Se un cliente riesce ad acquisire un posto in una delle sedie aspetterà di fare il proprio ritratto. Questa coda viene gestita dal semaforo `semaforoArtista` attraverso il suo metodo `tryAcquire()`.
 
-4. Al termine del ritratto il cliente interessato si alzerà dalla sedia e se ne andrà liberando `portraitSemaphore` e 1 posto del `chairsSemaphore`.
+4. Al termine del ritratto il cliente interessato se ne andrà liberando il `semaforoArtista` e 1 posto del `semaforoSedie`.
 
-## Personalizzazione
+## Variabili
 
-- Il numero di sedie disponibili può essere modificato impostando la costante `NUM_CHAIRS` nella classe `StreetArtistSimulation`.
+- La dimensione del buffer di sedie può essere modificato tramite la costante `buffer` nella classe `artista`.
 
-- Il tempo massimo di attesa per una sedia può essere modificato impostando la costante `MAX_WAIT_TIME` nella classe `StreetArtistSimulation`.
+- Il tempo massimo di attesa può essere modificato attraverso la costante `tempoAttesaMax` nella classe `artista`.
 
-- Il numero casuale di clienti può essere personalizzato modificando la generazione casuale nella classe `StreetArtistSimulation`.
+- Il numero di clienti può essere personalizzato modificando la generazione casuale nella classe `artista`.
 
-- Il tempo di esecuzione casuale per ogni ritratto può essere personalizzato modificando la generazione casuale nella classe `Customer` nel metodo `getPortrait()`.
+- Il tempo impiegato per il singolo ritratto può essere modificato tramite la generazione casuale nella classe `cliente` nel metodo `ritratto()`.
